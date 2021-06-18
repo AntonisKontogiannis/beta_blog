@@ -20,10 +20,12 @@
         <td><%= article.description %></td>
         <td><%= time_ago_in_words(article.created_at)%></td>
         <td><%= time_ago_in_words(article.updated_at) %></td>
-        <td>User1</td>
+        <td><%= article.user.username %></td>
         <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if logged_in? && article.user == current_user %>
+          <td><%= link_to 'Edit', edit_article_path(article) %></td>
+          <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -10,6 +10,17 @@
   <%= @article.description %>
 </p>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<p>
+  <strong>Created by:</strong>
+  <%= @article.user.username %>
+</p>
+<p>
+  <strong>Created at:</strong>
+  <%= time_ago_in_words(@article.created_at)%>
+</p>
+
+<% if logged_in? && @article.user == current_user %>
+  <%= link_to 'Edit', edit_article_path(@article) %> |
+  <%= link_to 'Destroy', @article, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% end %>
 <%= link_to 'Back', articles_path %>
